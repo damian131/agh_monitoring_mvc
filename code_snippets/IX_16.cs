@@ -1,13 +1,11 @@
-#r "Newtonsoft.Json"
-
-using System.Net;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Primitives;
-using Newtonsoft.Json;
-
-public static async Task<IActionResult> Run(HttpRequest req, ILogger log)
+[Function("Function1")]
+public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequestData req)
 {
-    log.LogInformation("C# HTTP trigger function processed a request.");
+	_logger.LogInformation("C# HTTP trigger function processed a request.");
 
-    return new OkObjectResult("Hello from Azure Funtion!");
+	var response = req.CreateResponse(HttpStatusCode.OK);
+	response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
+	response.WriteString("Hello from Azure Funtion!");
+
+	return response;
 }
