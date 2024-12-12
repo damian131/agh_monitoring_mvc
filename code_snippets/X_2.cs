@@ -1,5 +1,5 @@
 [Function("Function1")]
-public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequestData req)
+public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequestData req)
 {
 	_logger.LogInformation("C# HTTP trigger function processed a request
 	
@@ -7,7 +7,7 @@ public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Function, "get", "po
 
 	var response = req.CreateResponse(HttpStatusCode.OK);
 	response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
-	response.WriteString("Hello from Azure Funtion!");
+	await response.WriteStringAsync("Hello from Azure Funtion!");
 
 	return response;
 }
